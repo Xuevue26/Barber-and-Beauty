@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "289952504851",
+    "project_id": "barber-ce403",
+    "storage_bucket": "barber-ce403.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289952504851:android:5d1e3078e662c62136b3e6",
+        "android_client_info": {
+          "package_name": "com.example.barber_and_beauty_salon_booking_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIQjI0XZqVCG5rvq9qLgT5pTP4G3K9710"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
