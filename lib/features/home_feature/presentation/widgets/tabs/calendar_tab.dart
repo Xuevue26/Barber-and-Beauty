@@ -9,47 +9,59 @@ import 'package:flutter/material.dart';
 class CalendarTab extends StatelessWidget {
   const CalendarTab({super.key});
 
+  // ฟังก์ชันแปลงชื่อรูปเป็น path ภาพ assets
+  String getUserImage(String key) {
+    switch (key) {
+      case 'user1':
+        return Assets.images.user1.path;
+      case 'user2':
+        return Assets.images.user2.path;
+      case 'user3':
+        return Assets.images.user3.path;
+      case 'user4':
+        return Assets.images.user4.path;
+      case 'user5':
+        return Assets.images.user5.path;
+      default:
+        return Assets.images.user1.path;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final List<String> images = [
-      Assets.images.user1.path,
-      Assets.images.user2.path,
-      Assets.images.user3.path,
-      Assets.images.user4.path,
-      Assets.images.user5.path,
-      Assets.images.user1.path,
-      Assets.images.user2.path,
-      Assets.images.user3.path,
-      Assets.images.user4.path,
-      Assets.images.user5.path,
+    final List<Map<String, String>> bookings = [
+      {
+        'name': 'Emily Johnson',
+        'service': 'ຍອມສີຜົມ',
+        'image': 'user1',
+      },
+      {
+        'name': 'Daniel Taylor',
+        'service': 'ນວດ',
+        'image': 'user2',
+      },
+      {
+        'name': 'Henry Rodriguez',
+        'service': 'ຕັດຜົມ',
+        'image': 'user3',
+      },
+      {
+        'name': 'Amelia Young',
+        'service': 'ແຕ່ງຫນ້າ',
+        'image': 'user4',
+      },
+      {
+        'name': 'Samuel Hernandez',
+        'service': 'ເຮັດເລັບ',
+        'image': 'user5',
+      },
     ];
-    final List<String> names = [
-      'Emily Johnson',
-      'Daniel Taylor',
-      'Henry Rodriguez',
-      'Amelia Young',
-      'Samuel Hernandez',
-      'Emily Johnson',
-      'Daniel Taylor',
-      'Henry Rodriguez',
-      'Amelia Young',
-      'Samuel Hernandez',
-    ];
-    final List<String> services = [
-      'ຍອມສີຜົມ',
-      'ນວດ',
-      'ຕັດຜົມ',
-      'ແຕ່ງຫນ້າ',
-      'ເຮັດເລັບ',
-      'ຍອມສີຜົມ',
-      'ນວດ',
-      'ຕັດຜົມ',
-      'ແຕ່ງຫນ້າ',
-      'ເຮັດເລັບ',
-    ];
+
     return ListView.builder(
-      itemCount: names.length,
-      itemBuilder: (final context, final index) {
+      itemCount: bookings.length,
+      itemBuilder: (context, index) {
+        final booking = bookings[index];
+
         return Container(
           decoration: BoxDecoration(
             color: AppColors.cardColor,
@@ -57,11 +69,10 @@ class CalendarTab extends StatelessWidget {
           ),
           padding: EdgeInsets.all(Dimens.largePadding),
           margin: EdgeInsets.symmetric(
-            horizontal: index == 0 ? Dimens.largePadding : Dimens.padding,
+            horizontal: Dimens.largePadding,
             vertical: Dimens.padding,
           ),
           child: Row(
-            spacing: Dimens.largePadding,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
@@ -74,9 +85,13 @@ class CalendarTab extends StatelessWidget {
                 padding: EdgeInsets.only(top: Dimens.padding),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(Dimens.corners),
-                  child: Image.asset(images[index], fit: BoxFit.fitHeight),
+                  child: Image.asset(
+                    getUserImage(booking['image'] ?? 'user1'),
+                    fit: BoxFit.fitHeight,
+                  ),
                 ),
               ),
+              const SizedBox(width: Dimens.largePadding),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,28 +100,28 @@ class CalendarTab extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          names[index],
-                          style: TextStyle(
+                          booking['name'] ?? '',
+                          style: const TextStyle(
                             fontFamily: FontFamily.aksharMedium,
                             fontSize: 16,
                           ),
                         ),
-                        AppLightText(services[index]),
+                        AppLightText(booking['service'] ?? ''),
                       ],
                     ),
-                    SizedBox(height: Dimens.largePadding),
-                    Text(
+                    const SizedBox(height: Dimens.largePadding),
+                    const Text(
                       '14 ກໍລະກົດ 2025 . 12 - 15',
                       style: TextStyle(
                         fontFamily: FontFamily.aksharMedium,
                         fontSize: 16,
                       ),
                     ),
-                    SizedBox(height: Dimens.smallPadding),
+                    const SizedBox(height: Dimens.smallPadding),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
+                        const Row(
                           children: [
                             Text(
                               '\K40.000',
@@ -118,7 +133,10 @@ class CalendarTab extends StatelessWidget {
                             Text('/ຄົນ', style: TextStyle(fontSize: 14)),
                           ],
                         ),
-                        AppElevatedButton(onPressed: () {}, title: 'ເພີ່ມເຕີມ'),
+                        AppElevatedButton(
+                          onPressed: () {},
+                          title: 'ເພີ່ມເຕີມ',
+                        ),
                       ],
                     ),
                   ],

@@ -1,7 +1,6 @@
 import 'package:barber_and_beauty_salon_booking_app/core/gen/assets.gen.dart';
 import 'package:barber_and_beauty_salon_booking_app/core/gen/fonts.gen.dart';
 import 'package:barber_and_beauty_salon_booking_app/core/theme/colors.dart';
-import 'package:barber_and_beauty_salon_booking_app/core/theme/dimens.dart';
 import 'package:barber_and_beauty_salon_booking_app/core/widgets/app_elevated_button.dart';
 import 'package:barber_and_beauty_salon_booking_app/core/widgets/app_light_text.dart';
 import 'package:barber_and_beauty_salon_booking_app/core/widgets/app_list_tile.dart';
@@ -9,7 +8,6 @@ import 'package:barber_and_beauty_salon_booking_app/core/widgets/user_profile_im
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:barber_and_beauty_salon_booking_app/features/auth/login_page.dart';
 
 class ProfileTab extends StatelessWidget {
   const ProfileTab({super.key});
@@ -82,17 +80,17 @@ class ProfileTab extends StatelessWidget {
             title: 'ຊ່ວຍເຫຼືອແລະສະໜັບສະໜູນ',
             leadingIconPath: Assets.icons.info,
           ),
+
+          // Logout signOut
           AppListTile(
             onTap: () async {
               await FirebaseAuth.instance.signOut();
-              Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (_) => const LoginPage()),
-                (route) => false,
-              );
+              // ไม่ต้อง Navigator เพราะ main.dart ใช้ StreamBuilder ฟังการเปลี่ยนแปลงสถานะ login อยู่แล้ว
             },
             title: 'ອອກຈາກລະບົບ',
             leadingIconPath: Assets.icons.logout,
           ),
+
           const SizedBox(height: 32),
         ],
       ),

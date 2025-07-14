@@ -10,14 +10,17 @@ import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final int initialIndex;
+
+  const HomeScreen({super.key, this.initialIndex = 0}); // 👈 default = 0
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
+  late int _currentIndex;
+
   final List<Widget> _tabs = [
     const HomeTab(),
     const SearchTab(),
@@ -26,39 +29,41 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.initialIndex; // 👈 ตั้งค่าเริ่มต้นจาก constructor
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AppScaffold(
       body: _tabs[_currentIndex],
-      appBar:
-          _currentIndex == 0
-              ? HomeAppBar()
-              : _currentIndex == 2
-              ? AppBar(title: Text('ປະຕິທິນ'))
-              : null,
+      appBar: _currentIndex == 0
+          ? HomeAppBar()
+          : _currentIndex == 2
+          ? AppBar(title: const Text('ປະຫວັດການຈອງ'))
+          : null,
       padding: EdgeInsets.zero,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(32),
             topRight: Radius.circular(32),
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withValues(alpha: 0.3),
+              color: Colors.grey.withAlpha(30),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: Offset(0, 3),
+              offset: const Offset(0, 3),
             ),
           ],
         ),
-        padding: EdgeInsets.only(top: 8, left: 8, right: 8),
+        padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
         child: SalomonBottomBar(
           currentIndex: _currentIndex,
-          onTap:
-              (int index) => setState(() {
-                _currentIndex = index;
-              }),
+          onTap: (int index) => setState(() => _currentIndex = index),
           items: [
             bottomBarItem(
               iconPath: Assets.icons.home,
@@ -72,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             bottomBarItem(
               iconPath: Assets.icons.calendar,
-              title: 'ປະຕິທິນ',
+              title: 'ປະຫວັດ',
               isSelected: _currentIndex == 2,
             ),
             bottomBarItem(
@@ -90,24 +95,25 @@ class _HomeScreenState extends State<HomeScreen> {
     required final String iconPath,
     required final String title,
     required final bool isSelected,
-  }) => SalomonBottomBarItem(
-    icon: Container(
-      width: 34,
-      height: 34,
-      decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      padding: EdgeInsets.all(4),
-      child: Center(
-        child: AppSvgViewer(
-          iconPath,
-          color: isSelected ? Colors.deepOrange : Colors.black,
-          width: 18,
+  }) =>
+      SalomonBottomBarItem(
+        icon: Container(
+          width: 34,
+          height: 34,
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          padding: const EdgeInsets.all(4),
+          child: Center(
+            child: AppSvgViewer(
+              iconPath,
+              color: isSelected ? Colors.deepOrange : Colors.black,
+              width: 18,
+            ),
+          ),
         ),
-      ),
-    ),
-    title: Text(title),
-    selectedColor: Colors.deepOrange,
-  );
+        title: Text(title),
+        selectedColor: Colors.deepOrange,
+      );
 }
