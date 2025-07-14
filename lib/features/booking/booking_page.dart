@@ -60,7 +60,9 @@ class _BookingPageState extends State<BookingPage> {
   }
 
   void confirmBooking() {
-    if (selectedService == null || selectedDate == null || selectedTime == null) {
+    if (selectedService == null ||
+        selectedDate == null ||
+        selectedTime == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('ກະລຸນາເລືອກບໍລິການ ວັນທີ ແລະ ເວລາ')),
       );
@@ -92,12 +94,13 @@ class _BookingPageState extends State<BookingPage> {
                 border: OutlineInputBorder(),
               ),
               value: selectedService,
-              items: services.map((service) {
-                return DropdownMenuItem(
-                  value: service,
-                  child: Text(service),
-                );
-              }).toList(),
+              items:
+                  services.map((service) {
+                    return DropdownMenuItem(
+                      value: service,
+                      child: Text(service),
+                    );
+                  }).toList(),
               onChanged: (value) => setState(() => selectedService = value),
             ),
             const SizedBox(height: 20),

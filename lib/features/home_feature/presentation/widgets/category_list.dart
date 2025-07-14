@@ -3,7 +3,7 @@ import 'package:barber_and_beauty_salon_booking_app/core/gen/fonts.gen.dart';
 import 'package:barber_and_beauty_salon_booking_app/core/theme/colors.dart';
 import 'package:barber_and_beauty_salon_booking_app/core/theme/dimens.dart';
 import 'package:flutter/material.dart';
-import 'package:barber_and_beauty_salon_booking_app/features/booking/booking_detail.dart';
+
 class CategoryList extends StatelessWidget {
   const CategoryList({super.key});
 
